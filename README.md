@@ -20,7 +20,7 @@ Start with either matrix. Each matrix PDF has two pages: the matrix, then its ex
 
 For local screen reading, download the complete repository using **Code → Download ZIP**, extract it, and open `html/index.html` in your browser. Keep the folders together so the links work. The HTML pages open without a server and use system font fallbacks. GitHub’s repository view shows HTML source; it does not display these pages as a website.
 
-The package includes a GitHub Pages workflow. Once enabled in the repository’s **Settings → Pages** with **Source: GitHub Actions**, its deployment provides the online reading address. Until that deployment succeeds, use the downloaded HTML or read the Markdown directly on GitHub. On a narrow screen, matrix tables scroll horizontally while explanations reflow as ordinary text.
+**[Read CWM online](https://arcencilo-family.github.io/claim-witness-map/)** for the formatted screen edition and PDF downloads. You can also read the Markdown directly on GitHub or use the downloaded package offline. On a narrow screen, matrix tables scroll horizontally while explanations reflow as ordinary text.
 
 ## Print
 
