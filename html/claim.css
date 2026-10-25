@@ -1,0 +1,449 @@
+
+  @page { size: A4 landscape; margin: 0; }
+
+  :root {
+    --bg: #ddd5c5;
+    --paper: #faf6ee;
+    --ink: #1a1612;
+    --ink-soft: #3a322c;
+    --ink-faint: #6b6055;
+    --rule: #b9ad99;
+    --rule-soft: #d8cdb8;
+
+    --pass-strong-bg: #cde0c7;
+    --pass-bg: #dfeada;
+    --conditional-pass-bg: #ecdfb8;
+    --conditional-bg: #f0e3bf;
+    --cannot-bg: #d4dde8;
+    --discard-bg: #ccc4b6;
+    --flag-bg: #e8c6c0;
+    --lane-c-bg: #ede8df;
+
+    --pass-ink: #1e4a2a;
+    --conditional-ink: #6e4a0b;
+    --cannot-ink: #1f3a55;
+    --discard-ink: #3a342d;
+    --flag-ink: #6e1818;
+    --lane-c-ink: #4a4035;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Newsreader', Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    width: 297mm;
+    height: 210mm;
+    background: var(--paper);
+    margin: 14mm auto;
+    padding: 11mm 15mm 10mm;
+    position: relative;
+    box-shadow: 0 4px 28px rgba(0,0,0,0.10);
+    overflow: hidden;
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+  }
+  .sheet:last-child { page-break-after: auto; }
+
+  /* ── META BAR ── */
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    flex: 0 0 auto;
+  }
+
+  /* ── PAGE 1 TITLE ── */
+  .title-block {
+    margin: 6mm 0 4mm;
+    flex: 0 0 auto;
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+  h1 em { font-style: italic; font-weight: 400; color: var(--ink-soft); }
+  .subtitle {
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.35;
+  }
+
+  /* ── AXIS LABEL ROW ── */
+  .axis-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2mm;
+    flex: 0 0 auto;
+  }
+  .x-axis-label {
+    margin-left: 32mm;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* ── MATRIX CONTAINER ── */
+  .matrix-container {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .y-axis-col {
+    width: 6mm;
+    flex: 0 0 6mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .y-axis-col span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    white-space: nowrap;
+  }
+
+  table.matrix {
+    flex: 1;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+  }
+
+  .matrix th, .matrix td {
+    padding: 8px 10px;
+    vertical-align: top;
+    border-right: 1px solid var(--rule-soft);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .matrix tr td:last-child,
+  .matrix tr th:last-child { border-right: none; }
+  .matrix tr:last-child td,
+  .matrix tr:last-child th.row-head { border-bottom: none; }
+
+  .matrix th.corner {
+    width: 32mm;
+    border-bottom: 2px solid var(--ink);
+    border-right: 2px solid var(--ink);
+  }
+
+  .matrix th.col-head {
+    border-bottom: 2px solid var(--ink);
+    text-align: left;
+    padding-bottom: 6px;
+  }
+  .eg-tag {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: 1px;
+  }
+  .eg-label {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    line-height: 1.2;
+  }
+  .eg-quote {
+    display: block;
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-size: 9.5px;
+    color: var(--ink-faint);
+    margin-top: 1px;
+  }
+
+  .matrix th.row-head {
+    width: 32mm;
+    text-align: left;
+    border-right: 2px solid var(--ink);
+    padding-right: 8px;
+    vertical-align: top;
+  }
+  .lane-tag {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: 1px;
+  }
+  .lane-label {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+  .lane-quote {
+    display: block;
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-size: 9.5px;
+    color: var(--ink-faint);
+    line-height: 1.2;
+  }
+
+  /* Lane C row head — subtle tint to signal special status */
+  .row-head.lane-c {
+    background: var(--lane-c-bg);
+  }
+
+  /* ── CELLS ── */
+  .cell { position: relative; }
+  .cell .desc {
+    font-family: 'Newsreader', serif;
+    font-size: 10.5px;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 5px;
+    padding-right: 28px;
+  }
+  .cell .verdict {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: block;
+  }
+
+  /* Verdict colours */
+  .v-pass-strong { background: var(--pass-strong-bg); }
+  .v-pass-strong .verdict { color: var(--pass-ink); }
+
+  .v-pass { background: var(--pass-bg); }
+  .v-pass .verdict { color: var(--pass-ink); }
+
+  .v-cond-pass { background: var(--conditional-pass-bg); }
+  .v-cond-pass .verdict { color: var(--conditional-ink); }
+
+  .v-cond { background: var(--conditional-bg); }
+  .v-cond .verdict { color: var(--conditional-ink); }
+
+  .v-cannot { background: var(--cannot-bg); }
+  .v-cannot .verdict { color: var(--cannot-ink); }
+
+  .v-discard { background: var(--discard-bg); }
+  .v-discard .verdict { color: var(--discard-ink); }
+
+  .v-fail { background: var(--flag-bg); }
+  .v-fail .verdict { color: var(--flag-ink); }
+
+  /* Lane C cell tint — sits beneath the verdict colour */
+  .lane-c-cell { background: var(--lane-c-bg); }
+  .lane-c-cell.v-cond { background: var(--conditional-bg); }
+
+  /* Badges */
+  .badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 4px;
+    border-radius: 2px;
+    color: #fff;
+  }
+  .badge.strong { background: var(--pass-ink); }
+  .badge.ceiling { background: var(--lane-c-ink); }
+
+  /* ── CAPTION STRIP ── */
+  .caption-strip {
+    flex: 0 0 auto;
+    margin-top: 3mm;
+    padding-top: 3mm;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 10.5px;
+    color: var(--ink-soft);
+  }
+  .caption-strip .pageno {
+    font-family: 'JetBrains Mono', monospace;
+    font-style: normal;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    flex: 0 0 auto;
+    margin-left: 12px;
+  }
+
+  /* ══════════════════════════════════
+     PAGE 2
+  ══════════════════════════════════ */
+
+  .p2-title {
+    flex: 0 0 auto;
+    margin: 5mm 0 4mm;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 4px;
+  }
+  .p2-title h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .p2-title h2 em { font-style: italic; font-weight: 400; }
+  .p2-title .lede {
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-size: 11px;
+    color: var(--ink-soft);
+    line-height: 1.3;
+  }
+
+  .two-col {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 6mm 10mm;
+    min-height: 0;
+  }
+
+  .prose-block h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 3px;
+    margin-bottom: 5px;
+  }
+  .prose-block p {
+    font-family: 'Newsreader', serif;
+    font-size: 11px;
+    line-height: 1.48;
+    color: var(--ink-soft);
+    margin-bottom: 5px;
+  }
+  .prose-block p:last-child { margin-bottom: 0; }
+  .prose-block p strong { color: var(--ink); font-weight: 600; }
+  .prose-block p em { font-style: italic; color: var(--ink); }
+
+  .prose-block.featured {
+    background: #ede5d4;
+    padding: 5mm 6mm;
+    border-left: 2.5px solid var(--ink);
+  }
+
+  /* Lane C footnote strip — full width */
+  .footnote-strip {
+    flex: 0 0 auto;
+    margin-top: 4mm;
+    padding: 4mm 6mm;
+    border-top: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+    display: flex;
+    align-items: baseline;
+    gap: 10mm;
+  }
+  .footnote-strip .intro {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    flex: 0 0 24mm;
+    line-height: 1.4;
+  }
+  .footnote-clauses {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+  }
+  .footnote-clause {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 11px;
+    color: var(--ink-soft);
+    line-height: 1.35;
+    padding-left: 10px;
+    border-left: 1.5px solid var(--rule);
+    flex: 1;
+    margin-left: 6mm;
+  }
+  .footnote-clause:first-child { margin-left: 0; }
+  .footnote-clause strong { color: var(--ink); font-style: normal; }
+
+  /* Page 2 footer */
+  .page2-foot {
+    flex: 0 0 auto;
+    margin-top: 3mm;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  @media print {
+    body { background: white; }
+    .sheet { margin: 0; box-shadow: none; page-break-after: always; }
+    .sheet:last-child { page-break-after: auto; }
+  }
+
+/* Preserve the original layout without its clipped fixed-height notes page. */
+html,body{font-family:Georgia,serif}.sheet{height:auto;min-height:210mm;overflow:visible}h1,h2,.subtitle,.lane-label,.g-label,.c-label,.eg-label{font-family:Georgia,serif}.meta,.lane-tag,.g-tag,.c-tag,.eg-tag,.verdict{font-family:Arial,sans-serif}nav{max-width:1060px;margin:18px auto;font:14px/1.5 Arial,sans-serif}nav a{color:#31586b}.matrix-container{min-height:120mm;flex:0 0 auto}.matrix .desc{font-family:Georgia,serif;font-size:12px;line-height:1.35;padding-right:0;margin:0 0 12px}.matrix .verdict{font-size:10px;letter-spacing:0}.matrix .row-head{width:32mm}.matrix .lane-quote{display:block;font-size:11px;margin-top:4px}.matrix .corner{width:32mm}.matrix .cell{position:relative}.matrix .cell.marked{padding-top:29px}.badge.positive{background:#1e4a2a;color:white}.badge.danger{background:#6e1818;color:white}.badge{position:absolute;right:7px;top:6px;padding:3px 5px;font:700 9px Arial,sans-serif;letter-spacing:.04em;border-radius:2px}.legend,.short-note{font:12px/1.4 Georgia,serif;margin:10px 0 0}.result{display:flex;justify-content:space-between;font:11px Arial,sans-serif;margin-top:10px;border-top:1px solid #b9ad99;padding-top:9px}.caption-strip{font-size:11px}.notes-grid{display:grid;align-items:start;gap:7mm 9mm;flex:1}.claim-notes{grid-template-columns:1fr 1fr}.witness-notes{grid-template-columns:1fr 1fr 1fr}.notes-grid .prose-block p{font:13px/1.48 Georgia,serif;margin-bottom:9px}.notes-grid .prose-block h3{font:700 11px/1.4 Arial,sans-serif;letter-spacing:.03em}.notes-grid .featured{padding:14px 16px}.p2-title,.page2-title{display:block;margin:6mm 0}.p2-title h2,.page2-title h2{font:24px Georgia,serif;margin-bottom:8px}.lede{font:italic 13px/1.4 Georgia,serif}.footnote-strip p{font:13px/1.4 Georgia,serif}.page2-foot{font:10px/1.4 Arial,sans-serif;gap:20px;margin-top:18px}.page2-foot span:last-child{white-space:nowrap}
+@media print{nav{display:none}.sheet{height:auto;min-height:210mm;overflow:visible;break-after:page}.sheet:last-child{break-after:auto}.matrix-container{min-height:113mm}.matrix .desc{font-size:10.5px}.notes-grid .prose-block p{font-size:11.5px}.notes-grid .prose-block h3{font-size:10px}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+
+.fair-pledge{font:italic 13px/1.6 Georgia,serif;border-left:3px solid #63574b;margin:12px 0;padding:2px 0 2px 12px}@media print{.fair-pledge{font-size:11.5px}}
+
+.claim-notes,.witness-notes{grid-template-columns:repeat(3,minmax(0,1fr))}.notes-column .prose-block{margin-bottom:22px}.caption-strip,.page2-foot{align-items:end}@page{size:A4 landscape;margin:14.2mm}
+
+/* Screen reading uses natural heights; the downloadable PDFs control printing. */
+@media screen{.sheet{width:min(1123px,calc(100% - 24px));min-height:0;margin:24px auto;padding:32px 40px}.matrix-container{overflow-x:auto;display:block;min-height:0}.matrix{min-width:970px}.matrix .desc{font-size:14px;line-height:1.45}.matrix .verdict{font-size:12px}.matrix .lane-tag,.matrix .g-tag,.matrix .c-tag,.matrix .eg-tag{font-size:13px}.matrix .lane-label,.matrix .g-label,.matrix .c-label,.matrix .eg-label{font-size:14px}.y-axis-col{display:none}.notes-grid{grid-template-rows:none}.prose-block p{overflow-wrap:anywhere}nav{padding:0 18px}.title-block h1{font-size:34px}.subtitle{font-size:16px}.meta{gap:20px;flex-wrap:wrap}}
+@media screen and (max-width:750px){.sheet{padding:25px 20px}.notes-grid{grid-template-columns:1fr;gap:24px}.notes-grid .prose-block p{font-size:16px;line-height:1.6}.notes-grid .prose-block h3{font-size:13px}.p2-title h2,.page2-title h2{font-size:26px}.lede{font-size:15px}.legend,.short-note{font-size:14px}.caption-strip,.page2-foot{font-size:12px;line-height:1.5}.footnote-strip{display:block}.footnote-strip p{font-size:16px}.fair-pledge{font-size:16px}}
