@@ -8,11 +8,13 @@
 
 Three papers for locating claims, examining their support, and considering the source's credibility and stated confidence.
 
+**[Read CWM online](https://arcencilo-family.github.io/claim-witness-map/)** · [GitHub repository](https://github.com/arcencilo-family/claim-witness-map)
+
 | Paper | Plain Markdown | Screen reading | A4 print | US Letter print |
 | --- | --- | --- | --- | --- |
-| Claim Matrix | [Read](markdown/claim-matrix.md) | [HTML](html/claim-matrix.html) | [PDF](pdf/a4/Claim-Matrix.pdf) | [PDF](pdf/us-letter/Claim-Matrix.pdf) |
-| Witness Matrix | [Read](markdown/witness-matrix.md) | [HTML](html/witness-matrix.html) | [PDF](pdf/a4/Witness-Matrix.pdf) | [PDF](pdf/us-letter/Witness-Matrix.pdf) |
-| Two Instruments, One Epistemic Picture | [Companion](markdown/companion-paper.md) | [HTML](html/companion-paper.html) | [PDF](pdf/a4/Companion-Paper.pdf) | [PDF](pdf/us-letter/Companion-Paper.pdf) |
+| Claim Matrix | [Read](markdown/claim-matrix.md) | [Read online](https://arcencilo-family.github.io/claim-witness-map/html/claim-matrix.html) | [PDF](pdf/a4/Claim-Matrix.pdf) | [PDF](pdf/us-letter/Claim-Matrix.pdf) |
+| Witness Matrix | [Read](markdown/witness-matrix.md) | [Read online](https://arcencilo-family.github.io/claim-witness-map/html/witness-matrix.html) | [PDF](pdf/a4/Witness-Matrix.pdf) | [PDF](pdf/us-letter/Witness-Matrix.pdf) |
+| Two Instruments, One Epistemic Picture | [Companion](markdown/companion-paper.md) | [Read online](https://arcencilo-family.github.io/claim-witness-map/html/companion-paper.html) | [PDF](pdf/a4/Companion-Paper.pdf) | [PDF](pdf/us-letter/Companion-Paper.pdf) |
 
 Start with either matrix. Each matrix PDF has two pages: the matrix, then its explanation. The companion develops the reasoning, five cases, foundations, automated-evaluation rules, and an experimental project-based workflow.
 
